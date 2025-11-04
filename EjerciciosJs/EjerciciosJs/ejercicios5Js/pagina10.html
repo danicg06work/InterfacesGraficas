@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejercicio10</title>
+</head>
+
+<body>
+    <div id="cronometro">
+        <h1 id="tiempo">00:00</h1>
+        <button id="comenzar">Comenzar</button>
+        <button id="parar">Parar</button>
+        <button id="resetear">Reiniciar</button>
+    </div>
+    <script>
+        let minutos = 0;
+        let segundos = 0;
+        let intervalo;
+
+        function actualizarCronometro() {
+            segundos++;
+            if (segundos == 60) {
+                segundos = 0;
+                minutos++;
+            }
+            const formatoMinutos = minutos < 10 ? `0${minutos}` : minutos;
+            const formatoSegundos = segundos < 10 ? `0${segundos}` : segundos;
+            document.getElementById("tiempo").innerText = `${formatoMinutos}:${formatoSegundos}`;
+        }
+
+        document.getElementById("comenzar").addEventListener("click", () => {
+            clearInterval(intervalo);
+            intervalo = setInterval(actualizarCronometro, 1000);
+        });
+
+        document.getElementById("parar").addEventListener("click", () => {
+            clearInterval(intervalo);
+        });
+
+        document.getElementById("resetear").addEventListener("click", () => {
+            clearInterval(intervalo);
+            minutos = 0;
+            segundos = 0;
+            document.getElementById("tiempo").innerText = "00:00";
+        });
+    </script>
+</body>
+
+</html>
